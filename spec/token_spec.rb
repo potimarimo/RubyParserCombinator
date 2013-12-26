@@ -1,5 +1,5 @@
-p $:
 require_relative 'spec_helper'
+require 'token'
 
 describe Token do
   subject { Token.new('hello') }
