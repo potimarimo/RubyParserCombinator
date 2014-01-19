@@ -13,13 +13,13 @@ class Word < ParsingExpression
   def to_s
   	@word_string
   end
-  
-  private
   def really_parse(text)
     result = /\s*(\w+)\s*/.match(text.string, text.index)
       if result && result[1] == @word_string
         text.index += result.to_s.size
-        @word_string
+        return true, @word_string
+      else
+        return false, nil
       end
   end
 end

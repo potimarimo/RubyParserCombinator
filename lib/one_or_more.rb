@@ -10,14 +10,18 @@ class OneOrMore < ParsingExpression
   def to_s
     "(#{@inner_parsing_expression})+"
   end
-  private
   def really_parse(text)
-    if first = @inner_parsing_expression.parse(text)
+    success, first = @inner_parsing_expression.really_parse(text)
+    if success
       result = [first]
-      while(second_or_more = @inner_parsing_expression.parse(text))
+      success, second_or_more = @inner_parsing_expression.really_parse(text)
+      while success
         result << second_or_more
+        success, second_or_more = @inner_parsing_expression.really_parse(text)
       end
-      result
+      return true, result
+    else
+      return false, nil
     end
   end
 end

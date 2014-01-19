@@ -7,18 +7,17 @@ class Sequence < ParsingExpression
   def inspect
     "(#{@grammars.map(&:inspect).join(' + ')})"
   end
-  private
   def really_parse(text)
     return_value = []
       @grammars.each do |grammar|
-        element = grammar.parse(text)
-        if element
+        success, element = grammar.really_parse(text)
+        if success
           return_value << element
         else
-          return
+          return false, nil
         end
       end
-      return_value
+      return true, return_value
   end
   def sequence_new(grammar)
     Sequence.new(*@grammars, grammar)

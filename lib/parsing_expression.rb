@@ -4,7 +4,8 @@ class ParsingExpression
     when String
       parse(ParsedText.new(text))
     when ParsedText
-      really_parse(text)
+      success, result = really_parse(text)
+      result
     end
   end
   def +(parsing_expression = nil)
@@ -14,6 +15,9 @@ class ParsingExpression
     else
       OneOrMore.new(self)
     end
+  end
+  protected
+  def really_parse(text)
   end
   private 
   def sequence_new(parsing_expression)

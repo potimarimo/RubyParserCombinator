@@ -8,11 +8,12 @@ class Sign < ParsingExpression
   def to_s
     @sign_string
   end
-  private
   def really_parse(text)
     if match = /\s*#@sign_string\s*/.match(text.string, text.index)
       text.index += match.to_s.size
-      @sign_string
+      return true, @sign_string
+    else
+      return false, nil
     end
   end
 end
