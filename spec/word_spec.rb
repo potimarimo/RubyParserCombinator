@@ -1,6 +1,7 @@
 require_relative 'spec_helper'
 require 'word'
 
+include Rpc
 describe Word do
   subject { Word.new 'hello' }
   
@@ -9,7 +10,7 @@ describe Word do
       word('hello').should be_an_instance_of Word
     end
     it 'で単語を指定できます。' do
-      word('hello').to_s.should == 'hello'
+      word('hello').to_s.should == '"hello"'
     end
   end
   
@@ -20,8 +21,8 @@ describe Word do
   end
   
   describe '#to_s' do
-    it 'は単語をそのまま返します。' do
-      subject.to_s.should == 'hello'
+    it 'は単語をダブルクォーテーションで囲ったものを返します。' do
+      subject.to_s.should == '"hello"'
     end
   end
   

@@ -1,6 +1,7 @@
 require_relative 'spec_helper'
 require 'parsing_expression'
 
+include Rpc
 describe OneOrMore do
   subject { word('hello').+ }
   describe '#parse' do
@@ -16,12 +17,12 @@ describe OneOrMore do
   end
   describe '#inspect' do
     it 'は(parsing_expression)+という形式を返します。' do
-      subject.inspect.should == '("hello")+'
+      subject.inspect.should == '"hello"+'
     end
   end
   describe '#to_s' do
     it 'は(parsing_expression)+という形式を返します。' do
-      subject.to_s.should == '(hello)+'
+      subject.to_s.should == '"hello"+'
     end
   end
 end

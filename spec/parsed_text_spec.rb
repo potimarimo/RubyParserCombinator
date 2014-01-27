@@ -1,6 +1,7 @@
 require_relative 'spec_helper'
 require 'parsed_text'
 
+include Rpc
 describe ParsedText do
   subject { ParsedText.new('hello world') }
   describe '#to_s' do
@@ -9,8 +10,9 @@ describe ParsedText do
     end
   end
   describe '#inspect' do
-    it 'はテキストを文字列として返します。' do
-      subject.inspect.should == 'hello world'
+    it 'はテキストを現在位置を|であらわした文字列として返します。' do
+      subject.index = 5
+      subject.inspect.should == 'hello| world'
     end
   end
   describe '#string' do

@@ -1,29 +1,26 @@
-require 'parsed_text'
-require 'parsing_expression'
+require 'token'
+module Rpc
+  class Word < Token
+    class << self
+      alias new __new__
+    end
+    
+    def initialize(word_string)
+      @word_string = word_string
+    end
+    def to_s
+      "\"#@word_string\""
+    end
+    alias inspect to_s
+    def really_parse(text)
+      action_when_match(/\s*(\w+)\s*/, text)
+    end
+    def check_match(match, text)
+       match[1] == @word_string
+    end
+  end
 
-class Word < ParsingExpression
-  def initialize(word_string)
-    @word_string = word_string
+  def word(word_string)
+    Word.new(word_string)
   end
-  
-  def inspect
-    "\"#@word_string\""
-  end
-  
-  def to_s
-  	@word_string
-  end
-  def really_parse(text)
-    result = /\s*(\w+)\s*/.match(text.string, text.index)
-      if result && result[1] == @word_string
-        text.index += result.to_s.size
-        return true, @word_string
-      else
-        return false, nil
-      end
-  end
-end
-
-def word(word_string)
-  Word.new(word_string)
 end
