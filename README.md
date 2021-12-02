@@ -6,8 +6,8 @@ Rubyによる使いやすいパーサーコンビネーターを目指します�
 以下のような拡張BNFを、
 
 Value ← [0-9]+ / '(' Expr ')'  
-Product ← Value (('*' / '/') Value)*  
-Sum ← Product (('+' / '-') Product)*  
+Product ← Value (('\*' / '/') Value)\*  
+Sum ← Product (('+' / '-') Product)\*  
 Expr ← Sum  
 
 
@@ -16,7 +16,7 @@ Expr ← Sum
 
 expr = nil  
 value = grammar{ /[0-9]+/ / ('(' + expr + ')') }  
-product = value + ('*' / '/' + value).*  
-sum = product + ('+' / '-' + product).*  
+product = value + ('\*' / '/' + value).\*  
+sum = product + ('+' / '-' + product).\*  
 expr = sum  
 
